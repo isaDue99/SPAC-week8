@@ -5,6 +5,7 @@ Frontend for week 8 assignment, building on backend created during week 6-7 assi
 WIP
 
 ### to run and use frontend
+WIP
 
 ### to run tests
 From top directory: 'python -m unittest' to run all tests in /tests/-folder
