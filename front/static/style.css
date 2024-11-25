@@ -1,0 +1,53 @@
+:root {
+    --blue: rgb(50, 50, 129);
+    --pale_blue: rgb(88, 88, 145);
+}
+
+body {
+    background-color: rgb(174, 176, 182);
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin: 2em;
+}
+
+h1 {
+    color: var(--blue);
+}
+
+.two-box {
+    display: flex;
+    gap: 2em;
+}
+
+#controls {
+    width: 20%;
+    min-width: 150px;
+}
+
+
+/* table with database items */
+#db-list {
+    flex-grow: 1;
+    max-height: 70vh;
+    overflow: scroll;
+}
+
+table#db-list {
+    border-collapse: collapse;
+    border: 2px solid var(--blue);
+}
+
+#db-list th, #db-list td {
+    border: 1px solid var(--blue);
+    padding: 8px 10px;
+}
+
+
+/* footer */
+#footer {
+    color: var(--pale_blue);
+}
+#footer hr {
+    border-color: var(--pale_blue);
+}

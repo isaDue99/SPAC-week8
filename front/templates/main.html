@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}All products{% endblock %}
+
+{% block content %}
+<h1>All products in database</h1>
+
+<div class="two-box">
+    <div id="controls">
+        <button>Add product</button>
+        <button disabled="True">See details</button>
+        <button disabled="True">Update product</button>
+        <button disabled="True">Delete product</button>
+    </div>
+
+    <table id="db-list">
+        <thead>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Name</th>
+            <!--<th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>-->
+            <th>Last updated</th>
+            <th>Created</th>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr id={{item.Descriptor.ID|e}}>
+                <td>{{ item.Descriptor.ID|e }}</td>
+                <td>{{ item.Descriptor.Type|e }}</td>
+                <td>{{ item.Product.Name|e }}</td>
+                <!--<td>{{ item.Product.Description|e }}</td>
+                <td>{{ item.Product.Quantity|e }}</td>
+                <td>{{ item.Product.Price|e }}</td>-->
+                <td>{{ item.Descriptor.LastUpdatedAt|e }}</td>
+                <td>{{ item.Descriptor.CreatedAt|e }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>    
+    </table>
+</div>
+{% endblock %}
+
+
+
+{% block contentOld %}
+    <h1>All products in database</h1>
+    <ul>
+    {% for item in data %}
+        <li>{{ item|e }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

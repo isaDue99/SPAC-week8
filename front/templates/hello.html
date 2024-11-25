@@ -6,3 +6,11 @@
   <h1>Hello, World!</h1>
   <p>i love you!</p>
 {% endif %}
+
+
+<h3>all products</h3>
+<ul>
+  {% for db_item in data %}
+    <li>{{ db_item|e }}</li>
+  {% endfor %}
+  </ul>
