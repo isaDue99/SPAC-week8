@@ -2,7 +2,7 @@
 
 ### feature wishes
 - [] CRUD operations 
-    - [] create
+    - [X] create
     - [] read
     - [] update
     - [] delete

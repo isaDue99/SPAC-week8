@@ -1,15 +1,26 @@
 {% extends "base.html" %}
-{% block title %}All products{% endblock %}
+{% block title %}Overview{% endblock %}
 
 {% block content %}
-<h1>All products in database</h1>
+<h1>Database overview</h1>
 
 <div class="two-box">
     <div id="controls">
-        <button>Add product</button>
-        <button disabled="True">See details</button>
-        <button disabled="True">Update product</button>
-        <button disabled="True">Delete product</button>
+        <form action="{{ url_for('add') }}">
+            <button>Add product</button>
+        </form>
+        
+        <form action="">
+            <button disabled="True">See details</button>
+        </form>
+
+        <form action="/update">
+            <button disabled="True">Update product</button>
+        </form>
+
+        <form action="">
+            <button disabled="True">Delete product</button>
+        </form>
     </div>
 
     <table id="db-list">
