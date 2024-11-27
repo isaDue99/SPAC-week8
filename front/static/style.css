@@ -1,10 +1,11 @@
 :root {
     --blue: rgb(50, 50, 129);
     --pale_blue: rgb(88, 88, 145);
+    --bg: rgb(174, 176, 182);
 }
 
 body {
-    background-color: rgb(174, 176, 182);
+    background-color: var(--bg);
 
     font-family: Arial, Helvetica, sans-serif;
 
@@ -23,11 +24,80 @@ h1 {
 .two-box {
     display: flex;
     gap: 2em;
+    height: 82vh;
+}
+
+#left {
+    width: 20%;
+    min-width: 150px;
+}
+
+#right {
+    flex-grow: 1;
+    border: 1px solid var(--blue);
+    overflow-y: auto;
+    scrollbar-color: var(--blue) var(--bg);
+    scrollbar-width: thin;
 }
 
 #controls {
-    width: 20%;
-    min-width: 150px;
+    margin-bottom: 5px;
+}
+
+/* "see details" tables */
+#details-section {
+    border: 1px solid var(--blue);
+    max-height: 91%;
+    overflow-y: auto;
+    scrollbar-color: var(--blue) var(--bg);
+    scrollbar-width: thin;
+    padding: 5px;
+}
+
+.product-fields {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--blue);
+    margin-bottom: 1em;
+}
+
+.product-fields th, .product-fields td {
+    border: 2px solid var(--blue);
+    padding: 8px;
+}
+.product-fields th {
+    width: 30%;
+    background-color: var(--pale_blue);
+    color: white;
+    text-align: left;
+}
+
+
+/* table with database items */
+#db-list {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#db-list tbody tr:first-child td {
+    border-top: 0;
+}
+
+#db-list th, #db-list td {
+    border: 1px solid var(--blue);
+    padding: 8px 10px;
+}
+
+#db-list thead th {
+    background-color: var(--pale_blue);
+    color: white;
+}
+#db-list thead th {
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid var(--blue);
+    border-top: 1px solid var(--blue);
 }
 
 
@@ -36,23 +106,25 @@ h1 {
     display: none;
 }
 
+#new-product-details {
+    display: flex;
+    gap: 1em;
+}
 
-/* table with database items */
-#db-list {
+#new-product-details>.specifics {
     flex-grow: 1;
-    max-height: 70vh;
-    overflow: scroll;
+}
+#general-details {
+    width: 30%;
+}
+#new-product-details textarea{
+    width: 98%;
 }
 
-table#db-list {
-    border-collapse: collapse;
-    border: 2px solid var(--blue);
+#new-product-details div {
+    padding: 8px;
 }
 
-#db-list th, #db-list td {
-    border: 1px solid var(--blue);
-    padding: 8px 10px;
-}
 
 
 /* footer */

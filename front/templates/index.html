@@ -5,60 +5,111 @@
 <h1>Database overview</h1>
 
 <div class="two-box">
-    <div id="controls">
-        <form action="{{ url_for('add') }}">
-            <button>Add product</button>
-        </form>
-        
-        <form action="">
-            <button disabled="True">See details</button>
-        </form>
+    <div id="left">
+        <div id="controls">
+            <form action="{{ url_for('add') }}">
+                <button>Add new product</button>
+            </form>
+            
+            <form action="" id="id-select">
+                <button>See details</button>
+                <button formaction="{{ url_for('update') }}">Update product</button>
+                <button name="action" value="delete" formmethod="post">Delete product</button>
+            </form>
+        </div>
 
-        <form action="/update">
-            <button disabled="True">Update product</button>
-        </form>
+        {% if details %}
+        <div id="details-section">
+            <div>
+                <h3>General fields</h3>
+                <!-- Name, description, quantity, price -->
+                <table class="product-fields">
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ details.Product.Name|e }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ details.Product.Description|e }}</td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td>{{ details.Product.Quantity|e }}</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{{ details.Product.Price|e }}</td>
+                    </tr>
+                </table>
+                <!-- ID, Type, Created, Lastupdated -->
 
-        <form action="">
-            <button disabled="True">Delete product</button>
-        </form>
+                <table class="product-fields">
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ details.Descriptor.ID|e }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ details.Descriptor.Type|e }}</td>
+                    </tr>
+                    <tr>
+                        <th>Last updated</th>
+                        <td>{{ details.Descriptor.LastUpdatedAt|e }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created</th>
+                        <td>{{ details.Descriptor.CreatedAt|e }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            {% if details.Descriptor.Type|e != "Product" %}
+            <div>
+                <h3>{{ details.Descriptor.Type|e }}-specific fields</h3>
+                <!-- Other fields associated with product type: for field in product basically -->
+                <table class="product-fields">
+                    {% for field, value in details.Product.items() %}
+                        {% if field not in "Name, Description, Quantity, Price" %}
+                        <tr>
+                            <th>{{ field|e }}</th>
+                            <td>{{ value|e }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
+    
 
-    <table id="db-list">
-        <thead>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Name</th>
-            <!--<th>Description</th>
-            <th>Quantity</th>
-            <th>Price</th>-->
-            <th>Last updated</th>
-            <th>Created</th>
-        </thead>
-        <tbody>
-            {% for item in data %}
-            <tr id={{item.Descriptor.ID|e}}>
-                <td>{{ item.Descriptor.ID|e }}</td>
-                <td>{{ item.Descriptor.Type|e }}</td>
-                <td>{{ item.Product.Name|e }}</td>
-                <!--<td>{{ item.Product.Description|e }}</td>
-                <td>{{ item.Product.Quantity|e }}</td>
-                <td>{{ item.Product.Price|e }}</td>-->
-                <td>{{ item.Descriptor.LastUpdatedAt|e }}</td>
-                <td>{{ item.Descriptor.CreatedAt|e }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>    
-    </table>
+    <div id="right">
+        <table id="db-list">
+            <thead>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Last updated</th>
+                <th>Created</th>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>
+                        <label for="id-{{item.Descriptor.ID|e}}">
+                        <input type="radio" name="id" form="id-select" id="id-{{item.Descriptor.ID|e}}" value="{{item.Descriptor.ID|e}}" required />
+                        {{ item.Descriptor.ID|e }}
+                        </label>
+                    </td>
+                    <td>{{ item.Descriptor.Type|e }}</td>
+                    <td>{{ item.Product.Name|e }}</td>
+                    <td>{{ item.Descriptor.LastUpdatedAt|e }}</td>
+                    <td>{{ item.Descriptor.CreatedAt|e }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>    
+        </table>
+    </div>
 </div>
-{% endblock %}
-
-
-
-{% block contentOld %}
-    <h1>All products in database</h1>
-    <ul>
-    {% for item in data %}
-        <li>{{ item|e }}</li>
-    {% endfor %}
-  </ul>
 {% endblock %}

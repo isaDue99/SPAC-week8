@@ -1,12 +1,16 @@
 # plan for development of frontend
 
 ### feature wishes
-- [] CRUD operations 
+- [x] CRUD operations 
     - [X] create
-    - [] read
-    - [] update
-    - [] delete
-- (probably not much else w the limited time)
+    - [x] read
+    - [x] update
+    - [x] delete
+- [ ] cleaning up and making it nice!
+    - [ ] make it look nice
+        - [ ] make /add and /update share code... r just make /update nice now
+    - [ ] make it responsive
+    - [ ] Are u sure? prompt when deleting
 
 ### design ideas
 page split into 2 columns:

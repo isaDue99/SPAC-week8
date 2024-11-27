@@ -3,7 +3,7 @@
 function enableProductSpecifics(element) {
     // hide and unrequire all specific product fields
     hideThem(document.querySelectorAll(".specifics"));
-    unrequireThem(document.querySelectorAll(".specifics input"));
+    unrequireThem(document.querySelectorAll(".specifics input, .specifics select"));
 
     if (element.value != "product") {
         // get the id of the one we wanna show
@@ -11,7 +11,7 @@ function enableProductSpecifics(element) {
         console.log(divId);
 
         // set them to required
-        requireThem(document.querySelectorAll("#" + divId + " input"))
+        requireThem(document.querySelectorAll("#" + divId + " input, #" + divId + " select"))
 
         // show the div
         document.getElementById(divId).style.display = 'block';
