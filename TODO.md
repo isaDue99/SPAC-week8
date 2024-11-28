@@ -7,9 +7,9 @@
     - [x] update
     - [x] delete
 - [ ] cleaning up and making it nice!
-    - [ ] make it look nice
-        - [ ] make /add and /update share code... r just make /update nice now
-    - [ ] make it responsive
+    - [x] make it look nice
+        - [x] make /add and /update share code... or just make /update nice now
+    - [x] make it responsive
     - [ ] Are u sure? prompt when deleting
 
 ### design ideas

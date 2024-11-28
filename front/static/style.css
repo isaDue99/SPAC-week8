@@ -8,8 +8,10 @@ body {
     background-color: var(--bg);
 
     font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
 
-    margin: 2em;
+    padding: 2em;
+    margin: 0;
 }
 
 form {
@@ -23,13 +25,14 @@ h1 {
 
 .two-box {
     display: flex;
-    gap: 2em;
-    height: 82vh;
+    gap: 1em;
+
+    max-height: 75vh;
 }
 
 #left {
-    width: 20%;
-    min-width: 150px;
+    min-width: 30%;
+    max-width: 30%;
 }
 
 #right {
@@ -44,14 +47,16 @@ h1 {
     margin-bottom: 5px;
 }
 
+
 /* "see details" tables */
 #details-section {
     border: 1px solid var(--blue);
-    max-height: 91%;
-    overflow-y: auto;
+    overflow: auto;
     scrollbar-color: var(--blue) var(--bg);
     scrollbar-width: thin;
     padding: 5px;
+
+    max-height: 64.9vh;
 }
 
 .product-fields {
@@ -66,7 +71,8 @@ h1 {
     padding: 8px;
 }
 .product-fields th {
-    width: 30%;
+    width: 5em;
+    max-width: 5em;
     background-color: var(--pale_blue);
     color: white;
     text-align: left;
@@ -78,6 +84,7 @@ h1 {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    max-height: 60vh;
 }
 
 #db-list tbody tr:first-child td {
@@ -100,6 +107,14 @@ h1 {
     border-top: 1px solid var(--blue);
 }
 
+#db-list tr td:first-child {
+    width: 5em;
+}
+#db-list tr td:first-child label {
+    display: inline-block;
+    width: 100%;
+}
+
 
 /* /add page */
 .specifics {
@@ -109,20 +124,21 @@ h1 {
 #new-product-details {
     display: flex;
     gap: 1em;
+    margin: 0;
+    padding: 8px;
 }
 
 #new-product-details>.specifics {
     flex-grow: 1;
 }
-#general-details {
-    width: 30%;
-}
 #new-product-details textarea{
-    width: 98%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
 }
 
 #new-product-details div {
-    padding: 8px;
+    margin-bottom: 4px;
 }
 
 
@@ -134,3 +150,31 @@ h1 {
 #footer hr {
     border-color: var(--pale_blue);
 }
+
+
+/* responsive */
+@media screen and (max-width: 800px) {
+    .two-box {
+        /* move left box on top of right */
+        flex-flow: column;
+    }
+    #left {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    #details-section {
+        /* let each child div (with the tables sit side-by-side, optionally spillin onto another line? */
+        max-height: 35vh;
+    }
+
+    /* /add page */
+    #new-product-details {
+        gap: 0;
+        flex-flow: column;
+    }
+    #general-details {
+        width: 100%;
+    }
+}
+  

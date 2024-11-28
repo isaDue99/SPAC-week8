@@ -6,151 +6,154 @@
 
 <div class="two-box">
 
-<div id="controls">
-    <form action="{{ url_for('index') }}">
-        <button>Go back</button>
-    </form>
-    
-    <button form="new-product-details">Submit</button>
+<div id="left">
+    <div id="controls">
+        <form action="{{ url_for('index') }}">
+            <button>Go back</button>
+        </form>
+        
+        <button form="new-product-details">Submit</button>
+    </div>
 </div>
 
+<div id="right">
+    <!--
+    general product fields always visible: Name, Description, Quantity, Price
+    type dropdown: select between existant product types
+    once dropdown option is selected: show fields relevant to that product
+    -->
 
-<!--
-general product fields always visible: Name, Description, Quantity, Price
-type dropdown: select between existant product types
-once dropdown option is selected: show fields relevant to that product
--->
-
-<form id="new-product-details" action="" method="post">
-    <h3>General product details</h3>
-    <div id="general-details">
-        <div>
-            <label for="id">ID: </label>
-            <input type="number" name="id" value="{{details.Descriptor.ID|e}}" readonly style="background-color: silver;"/>
-        </div>
-        <div>
-            <label for="name">Name: </label>
-            <input type="text" name="name" value="{{details.Product.Name|e}}" required />
-        </div>
-        <div>
-            <label for="description">Description: </label>
-            <textarea name="description" required>{{details.Product.Description|e}}</textarea>
-        </div>
-        <div>
-            <label for="quantity">Quantity: </label>
-            <input type="number" name="quantity" min="0" placeholder="1" value="{{details.Product.Quantity|e}}" required />
-        </div>
-        <div>
-            <label for="price">Price: </label>
-            <input type="number" name="price" min="0" placeholder="1.00" step="0.01" value="{{details.Product.Price|e}}" required />
-        </div>
-    </div>
-
-
-    <div id="types">
-        <label for="type-select">Type:</label>
-        <select name="type" id="type-select" required>
-            <option value="product" {% if details.Descriptor.Type == "Product" %} selected {% endif %} >Product</option>
-            <option value="book" {% if details.Descriptor.Type == "Book" %} selected {% endif %}>Book</option>
-            <option value="cereal" {% if details.Descriptor.Type == "Cereal" %} selected {% endif %}>Cereal</option>
-            <option value="clothing" {% if details.Descriptor.Type == "Clothing" %} selected {% endif %}>Clothing</option>
-            <!-- {% for type in types %}
-            <option>{{ type }}</option>
-            {% endfor %} -->
-        </select>
-    </div>
-
-
-    {% if details.Descriptor.Type == "Book" %}
-    <div id="book-details" >
-        <h3>Book-specific details</h3>
-        <div>
-            <label for="genre">Genre: </label>
-            <input type="text" name="genre" placeholder="Romance" value="{{details.Product.Genre|e}}" required/>
-        </div>
-        <div>
-            <label for="pageCount">Page count: </label>
-            <input type="number" name="pageCount" min="0" placeholder="10" value="{{details.Product.PageCount|e}}" required/>
-        </div>
-    </div>
-    {% endif %}
-
-
-    {% if details.Descriptor.Type == "Cereal" %}
-    <div id="cereal-details" >
-        <h3>Cereal-specific details</h3>
-        <div id="cereal-general">
+    <form id="new-product-details" action="" method="post">
+        <div id="general-details">
+            <h3>General product details</h3>
             <div>
-                <label for="netWeight">Net weight: </label>
-                <input type="number" name="netWeight" min="0" placeholder="500" value="{{details.Product.NetWeight|e}}" required/>
-                <label for="netWeight">grams</label>
+                <label for="id">ID: </label>
+                <input type="number" name="id" value="{{details.Descriptor.ID|e}}" readonly style="background-color: silver;"/>
             </div>
             <div>
-                <label for="ingredients">Ingredients: </label>
-                <input type="text" name="ingredients" placeholder="Wheat, corn, oats" value="{{details.Product.Ingredients|e}}" required/>
+                <label for="name">Name: </label>
+                <input type="text" name="name" value="{{details.Product.Name|e}}" maxlength="255" required />
+            </div>
+            <div>
+                <label for="description">Description: </label><br>
+                <textarea name="description" maxlength="255" required>{{details.Product.Description|e}}</textarea>
+            </div>
+            <div>
+                <label for="quantity">Quantity: </label>
+                <input type="number" name="quantity" min="0" placeholder="1" value="{{details.Product.Quantity|e}}" required />
+            </div>
+            <div>
+                <label for="price">Price: </label>
+                <input type="number" name="price" min="0" placeholder="1.00" step="0.01" value="{{details.Product.Price|e}}" required />
+            </div>
+
+            <div id="types">
+                <label for="type-select">Type:</label>
+                <select name="type" id="type-select" required>
+                    <option value="product" {% if details.Descriptor.Type == "Product" %} selected {% endif %} >Product</option>
+                    <option value="book" {% if details.Descriptor.Type == "Book" %} selected {% endif %}>Book</option>
+                    <option value="cereal" {% if details.Descriptor.Type == "Cereal" %} selected {% endif %}>Cereal</option>
+                    <option value="clothing" {% if details.Descriptor.Type == "Clothing" %} selected {% endif %}>Clothing</option>
+                    <!-- {% for type in types %}
+                    <option>{{ type }}</option>
+                    {% endfor %} -->
+                </select>
             </div>
         </div>
-        <div id="cereal-nutrition">
-            <h4>Nutrition (per 100 grams)</h4>
-            <div>
-                <label for="calories">Calories: </label>
-                <input type="number" name="calories" min="0" placeholder="130" value="{{details.Product.Calories|e}}" required/>
-                <label for="calories">kcal</label>
-            </div>
-            <div>
-                <label for="fat">Fat: </label>
-                <input type="number" name="fat" min="0" placeholder="0" step="0.1" value="{{details.Product.Fat|e}}" required/>
-                <label for="fat">grams</label>
-            </div>
-            <div>
-                <label for="carbs">Carbs: </label>
-                <input type="number" name="carbs" min="0" placeholder="35.5" step="0.1" value="{{details.Product.Carbs|e}}" required/>
-                <label for="carbs">grams</label>
-            </div>
-            <div>
-                <label for="protein">Protein: </label>
-                <input type="number" name="protein" min="0" placeholder="2.5" step="0.1" value="{{details.Product.Protein|e}}" required/>
-                <label for="protein">grams</label>
-            </div>
-            <div>
-                <label for="fiber">Fiber: </label>
-                <input type="number" name="fiber" min="0" placeholder="1" step="0.1" value="{{details.Product.Fiber|e}}" required/>
-                <label for="fiber">grams</label>
-            </div>
-            <div>
-                <label for="salt">Salt: </label>
-                <input type="number" name="salt" min="0" placeholder="0" step="0.1" value="{{details.Product.Salt|e}}" required/>
-                <label for="salt">grams</label>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 
 
-    {% if details.Descriptor.Type == "Clothing" %}
-    <div id="clothing-details">
-        <h3>Clothing-specific details</h3>
-        <div>
-            <label for="material">Material: </label>
-            <input type="text" name="material" placeholder="100% cotton" value="{{details.Product.Material|e}}" required/>
+        {% if details.Descriptor.Type == "Book" %}
+        <div id="book-details" >
+            <h3>Book-specific details</h3>
+            <div>
+                <label for="genre">Genre: </label>
+                <input type="text" name="genre" placeholder="Romance" value="{{details.Product.Genre|e}}" maxlength="255" required/>
+            </div>
+            <div>
+                <label for="pageCount">Page count: </label>
+                <input type="number" name="pageCount" min="0" placeholder="10" value="{{details.Product.PageCount|e}}" required/>
+            </div>
         </div>
-        <div>
-            <label for="size-select">Size: </label>
-            <select name="size" id="size-select" required>
-                <option value=""></option>
-                <option value="S" {% if details.Product.Size == "S" %} selected {% endif %}>Small</option>
-                <option value="M" {% if details.Product.Size == "M" %} selected {% endif %}>Medium</option>
-                <option value="L" {% if details.Product.Size == "L" %} selected {% endif %}>Large</option>
-                <option value="XL" {% if details.Product.Size == "XL" %} selected {% endif %}>Extra large</option>
-            </select>
+        {% endif %}
+
+
+        {% if details.Descriptor.Type == "Cereal" %}
+        <div id="cereal-details" >
+            <h3>Cereal-specific details</h3>
+            <div id="cereal-general">
+                <div>
+                    <label for="netWeight">Net weight: </label>
+                    <input type="number" name="netWeight" min="0" placeholder="500" value="{{details.Product.NetWeight|e}}" required/>
+                    <label for="netWeight">grams</label>
+                </div>
+                <div>
+                    <label for="ingredients">Ingredients: </label>
+                    <input type="text" name="ingredients" placeholder="Wheat, corn, oats" value="{{details.Product.Ingredients|e}}" maxlength="255" required/>
+                </div>
+            </div>
+            <div id="cereal-nutrition">
+                <h4>Nutrition (per 100 grams)</h4>
+                <div>
+                    <label for="calories">Calories: </label>
+                    <input type="number" name="calories" min="0" placeholder="130" value="{{details.Product.Calories|e}}" required/>
+                    <label for="calories">kcal</label>
+                </div>
+                <div>
+                    <label for="fat">Fat: </label>
+                    <input type="number" name="fat" min="0" placeholder="0" step="0.1" value="{{details.Product.Fat|e}}" required/>
+                    <label for="fat">grams</label>
+                </div>
+                <div>
+                    <label for="carbs">Carbs: </label>
+                    <input type="number" name="carbs" min="0" placeholder="35.5" step="0.1" value="{{details.Product.Carbs|e}}" required/>
+                    <label for="carbs">grams</label>
+                </div>
+                <div>
+                    <label for="protein">Protein: </label>
+                    <input type="number" name="protein" min="0" placeholder="2.5" step="0.1" value="{{details.Product.Protein|e}}" required/>
+                    <label for="protein">grams</label>
+                </div>
+                <div>
+                    <label for="fiber">Fiber: </label>
+                    <input type="number" name="fiber" min="0" placeholder="1" step="0.1" value="{{details.Product.Fiber|e}}" required/>
+                    <label for="fiber">grams</label>
+                </div>
+                <div>
+                    <label for="salt">Salt: </label>
+                    <input type="number" name="salt" min="0" placeholder="0" step="0.1" value="{{details.Product.Salt|e}}" required/>
+                    <label for="salt">grams</label>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="color">Color: </label>
-            <input type="text" name="color" placeholder="Black" value="{{details.Product.Color|e}}" required/>
+        {% endif %}
+
+
+        {% if details.Descriptor.Type == "Clothing" %}
+        <div id="clothing-details">
+            <h3>Clothing-specific details</h3>
+            <div>
+                <label for="material">Material: </label>
+                <input type="text" name="material" placeholder="100% cotton" value="{{details.Product.Material|e}}" maxlength="255" required/>
+            </div>
+            <div>
+                <label for="size-select">Size: </label>
+                <select name="size" id="size-select" required>
+                    <option value=""></option>
+                    <option value="S" {% if details.Product.Size == "S" %} selected {% endif %}>Small</option>
+                    <option value="M" {% if details.Product.Size == "M" %} selected {% endif %}>Medium</option>
+                    <option value="L" {% if details.Product.Size == "L" %} selected {% endif %}>Large</option>
+                    <option value="XL" {% if details.Product.Size == "XL" %} selected {% endif %}>Extra large</option>
+                </select>
+            </div>
+            <div>
+                <label for="color">Color: </label>
+                <input type="text" name="color" placeholder="Black" value="{{details.Product.Color|e}}" maxlength="255" required/>
+            </div>
         </div>
-    </div>
-    {% endif %}
-</form>
+        {% endif %}
+    </form>
+
+</div>
 
 </div>
 
