@@ -6,7 +6,7 @@ From top directory: 'docker compose up'
 If need to rebuild, open docker desktop and delete containers, images, volumes
 
 ### to run and use frontend (flask)
-From top directory: 'flask --app front/main run', then navigate to (webpages)
+From top directory: 'flask --app front/main run', then navigate to http://127.0.0.1:5000 or whatever it says in the terminal
 For debug: 'flask --app front/main run --debug'
 
 ### to run tests
